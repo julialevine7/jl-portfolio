@@ -76,7 +76,7 @@ export default async function Project({
   return (
     <Column as="section" maxWidth="m" horizontal="center" gap="l">
       <Schema
-        as="Article"
+        as="article"
         baseURL={baseURL}
         path={`${work.path}/${post.slug}`}
         title={post.metadata.title}
