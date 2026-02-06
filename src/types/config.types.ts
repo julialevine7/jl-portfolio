@@ -44,12 +44,13 @@ export type FontsConfig = {
 
 /**
  * Style customization for main layout.
+ * Runtime also supports "custom" for neutral, brand, accent (see Once UI ThemeProvider).
  */
 export type StyleConfig = {
   theme: Theme;
-  neutral: NeutralColor;
-  brand: Schemes;
-  accent: Schemes;
+  neutral: NeutralColor | "custom";
+  brand: Schemes | "custom";
+  accent: Schemes | "custom";
   solid: SolidType;
   solidStyle: SolidStyle;
   border: BorderStyle;

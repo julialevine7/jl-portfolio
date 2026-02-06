@@ -2,18 +2,18 @@ import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/
 import { Line, Row, Text } from "@once-ui-system/core";
 
 const person: Person = {
-  firstName: "Selene",
-  lastName: "Yu",
-  name: `Selene Yu`,
+  firstName: "Julia",
+  lastName: "Levine",
+  name: `Julia Levine`,
   role: "Design Engineer",
   avatar: "/images/avatar.jpg",
-  email: "example@gmail.com",
-  location: "Asia/Jakarta", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Bahasa"], // optional: Leave the array empty if you don't want to display languages
+  email: "julialevine77@gmail.com",
+  location: "America/New_York", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
+  languages: [], // optional: Leave the array empty if you don't want to display languages
 };
 
 const newsletter: Newsletter = {
-  display: true,
+  display: false,
   title: <>Subscribe to {person.firstName}'s Newsletter</>,
   description: <>My weekly newsletter about creativity and engineering</>,
 };
@@ -60,14 +60,14 @@ const home: Home = {
   label: "Home",
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Building bridges between design and code</>,
+  headline: <>Builds that make <Text as="span" size="l" weight="strong" style={{ fontStyle: "italic" }}>data</Text> make <Text as="span" size="l" weight="strong" color="accent-400" style={{ fontStyle: "italic" }}>sense</Text> </>,
   featured: {
     display: true,
     title: (
       <Row gap="12" vertical="center">
         <strong className="ml-4">Once UI</strong>{" "}
-        <Line background="brand-alpha-strong" vert height="20" />
-        <Text marginRight="4" onBackground="brand-medium">
+        <Line background="accent-alpha-strong" vert height="20" />
+        <Text marginRight="4" onBackground="accent-strong">
           Featured work
         </Text>
       </Row>
@@ -76,7 +76,7 @@ const home: Home = {
   },
   subline: (
     <>
-    I'm Selene, a design engineer at <Text as="span" size="xl" weight="strong">ONCE UI</Text>, where I craft intuitive <br /> user experiences. After hours, I build my own projects.
+    Data scientist by trade, builder and creative by habit.
 </>
   ),
 };
@@ -84,7 +84,7 @@ const home: Home = {
 const about: About = {
   path: "/about",
   label: "About",
-  title: `About – ${person.name}`,
+  title: `About Me`,
   description: `Meet ${person.name}, ${person.role} from ${person.location}`,
   tableOfContent: {
     display: true,
@@ -246,7 +246,7 @@ const work: Work = {
   label: "Work",
   title: `Projects – ${person.name}`,
   description: `Design and dev projects by ${person.name}`,
-  // Create new project pages by adding a new .mdx file to app/blog/posts
+  // Create new project pages by adding a new .mdx file to app/work/projects
   // All projects will be listed on the /home and /work routes
 };
 
@@ -301,4 +301,4 @@ const gallery: Gallery = {
   ],
 };
 
-export { person, social, newsletter, home, about, blog, work, gallery };
+export { person, social, newsletter, home, about, work, gallery };
