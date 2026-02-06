@@ -6,7 +6,7 @@ const person: Person = {
   lastName: "Levine",
   name: `Julia Levine`,
   role: "Design Engineer",
-  avatar: "/images/avatar.jpg",
+  avatar: "/images/avatar.png",
   email: "julialevine77@gmail.com",
   location: "America/New_York", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
   languages: [], // optional: Leave the array empty if you don't want to display languages
@@ -94,7 +94,7 @@ const about: About = {
     display: true,
   },
   calendar: {
-    display: true,
+    display: false,
     link: "https://cal.com",
   },
   intro: {
@@ -102,9 +102,7 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        Selene is a Jakarta-based design engineer with a passion for transforming complex challenges
-        into simple, elegant design solutions. Her work spans digital interfaces, interactive
-        experiences, and the convergence of design and technology.
+        bio here
       </>
     ),
   },
@@ -113,17 +111,15 @@ const about: About = {
     title: "Work Experience",
     experiences: [
       {
-        company: "FLY",
+        company: "company 1",
         timeframe: "2022 - Present",
-        role: "Senior Design Engineer",
+        role: "role",
         achievements: [
           <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
+            bio
           </>,
           <>
-            Spearheaded the integration of AI tools into design workflows, enabling designers to
-            iterate 50% faster.
+            bio
           </>,
         ],
         images: [
@@ -136,22 +132,6 @@ const about: About = {
           },
         ],
       },
-      {
-        company: "Creativ3",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
-        achievements: [
-          <>
-            Developed a design system that unified the brand across multiple platforms, improving
-            design consistency by 40%.
-          </>,
-          <>
-            Led a cross-functional team to launch a new product line, contributing to a 15% increase
-            in overall company revenue.
-          </>,
-        ],
-        images: [],
-      },
     ],
   },
   studies: {
@@ -159,12 +139,8 @@ const about: About = {
     title: "Studies",
     institutions: [
       {
-        name: "University of Jakarta",
-        description: <>Studied software engineering.</>,
-      },
-      {
-        name: "Build the Future",
-        description: <>Studied online marketing and personal branding.</>,
+        name: "University of college",
+        description: <>Studied stuff.</>,
       },
     ],
   },
@@ -230,15 +206,6 @@ const about: About = {
       },
     ],
   },
-};
-
-const blog: Blog = {
-  path: "/blog",
-  label: "Blog",
-  title: "Writing about design and tech...",
-  description: `Read what ${person.name} has been up to recently`,
-  // Create new blog posts by adding a new .mdx file to app/blog/posts
-  // All posts will be listed on the /blog route
 };
 
 const work: Work = {

@@ -16,6 +16,7 @@ export {
   protectedRoutes,
   baseURL,
   fonts,
+  shrikhandDisplay,
   style,
   schema,
   sameAs,

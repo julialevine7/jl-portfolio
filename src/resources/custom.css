@@ -73,3 +73,8 @@
 [data-theme="light"] a[href]:not([data-border]):hover {
   color: var(--scheme-accent-500);
 }
+
+/* Shrikhand only for: "Builds...", "Julia Levine", "Work Experience", "Projects" */
+.font-shrikhand {
+  font-family: var(--font-display), serif;
+}

@@ -1,17 +1,34 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-import { Fade, Flex, Line, Row, ToggleButton } from "@once-ui-system/core";
+import { Column, Fade, Flex, Line, Row, Select, ToggleButton } from "@once-ui-system/core";
 
 import { routes, display, person, about, work, gallery } from "@/resources";
 import { ThemeToggle } from "./ThemeToggle";
 import styles from "./Header.module.scss";
 
+const TIMEZONE_STORAGE_KEY = "portfolio-timezone";
+
+function getTimezones(): { value: string; label: string }[] {
+  if (typeof Intl !== "undefined" && "supportedValuesOf" in Intl) {
+    const zones = (Intl as any).supportedValuesOf("timeZone") as string[];
+    return zones.sort().map((z) => ({ value: z, label: z }));
+  }
+  return [
+    { value: "America/New_York", label: "America/New_York" },
+    { value: "America/Los_Angeles", label: "America/Los_Angeles" },
+    { value: "Europe/London", label: "Europe/London" },
+    { value: "Europe/Paris", label: "Europe/Paris" },
+    { value: "Asia/Tokyo", label: "Asia/Tokyo" },
+    { value: "UTC", label: "UTC" },
+  ];
+}
+
 type TimeDisplayProps = {
   timeZone: string;
-  locale?: string; // Optionally allow locale, defaulting to 'en-GB'
+  locale?: string;
 };
 
 const TimeDisplay: React.FC<TimeDisplayProps> = ({ timeZone, locale = "en-GB" }) => {
@@ -19,16 +36,20 @@ const TimeDisplay: React.FC<TimeDisplayProps> = ({ timeZone, locale = "en-GB" })
 
   useEffect(() => {
     const updateTime = () => {
-      const now = new Date();
-      const options: Intl.DateTimeFormatOptions = {
-        timeZone,
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false,
-      };
-      const timeString = new Intl.DateTimeFormat(locale, options).format(now);
-      setCurrentTime(timeString);
+      try {
+        const now = new Date();
+        const options: Intl.DateTimeFormatOptions = {
+          timeZone,
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        };
+        const timeString = new Intl.DateTimeFormat(locale, options).format(now);
+        setCurrentTime(timeString);
+      } catch {
+        setCurrentTime("--:--:--");
+      }
     };
 
     updateTime();
@@ -44,6 +65,20 @@ export default TimeDisplay;
 
 export const Header = () => {
   const pathname = usePathname() ?? "";
+  const timezones = useMemo(getTimezones, []);
+
+  const [selectedTimezone, setSelectedTimezone] = useState<string>(() => {
+    if (typeof window === "undefined") return person.location;
+    return localStorage.getItem(TIMEZONE_STORAGE_KEY) || person.location;
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(TIMEZONE_STORAGE_KEY, selectedTimezone);
+    } catch {}
+  }, [selectedTimezone]);
+
+  const showTimeOrLocation = display.time || display.location;
 
   return (
     <>
@@ -73,7 +108,25 @@ export const Header = () => {
         }}
       >
         <Row paddingLeft="12" fillWidth vertical="center" textVariant="body-default-s">
-          {display.location && <Row s={{ hide: true }}>{person.location}</Row>}
+          {showTimeOrLocation && (
+            <Column gap="2" vertical="start" s={{ hide: true }}>
+              <Select
+                id="header-timezone"
+                value={selectedTimezone}
+                onSelect={(value) => setSelectedTimezone(value as string)}
+                options={timezones}
+                searchable
+                placeholder="Select timezone"
+                height="s"
+                style={{ minWidth: 220 }}
+              />
+              {display.time && (
+                <Row suppressHydrationWarning>
+                  <TimeDisplay timeZone={selectedTimezone} />
+                </Row>
+              )}
+            </Column>
+          )}
         </Row>
         <Row fillWidth horizontal="center">
           <Row
@@ -156,19 +209,7 @@ export const Header = () => {
             </Row>
           </Row>
         </Row>
-        <Flex fillWidth horizontal="end" vertical="center">
-          <Flex
-            paddingRight="12"
-            horizontal="end"
-            vertical="center"
-            textVariant="body-default-s"
-            gap="20"
-          >
-            <Flex s={{ hide: true }}>
-              {display.time && <TimeDisplay timeZone={person.location} />}
-            </Flex>
-          </Flex>
-        </Flex>
+        <Flex fillWidth horizontal="end" vertical="center" paddingRight="12" />
       </Row>
     </>
   );

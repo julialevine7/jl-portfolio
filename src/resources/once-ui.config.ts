@@ -36,32 +36,40 @@ const protectedRoutes: ProtectedRoutesConfig = {
   "/work/automate-design-handovers-with-a-figma-to-code-pipeline": true,
 };
 
-// Import and set font for each variant — bold, rounded, slightly italic feel to match image
-import { Nunito } from "next/font/google";
+// Import and set font for each variant — Bitter for headings/body/labels; Shrikhand only for 4 main display headers
+import { Shrikhand } from "next/font/google";
+import { Bitter } from "next/font/google";
 import { Geist_Mono } from "next/font/google";
 
-const heading = Nunito({
+const shrikhandDisplay = Shrikhand({
+  variable: "--font-display",
+  subsets: ["latin"],
+  display: "swap",
+  weight: "400",
+});
+
+const heading = Bitter({
   variable: "--font-heading",
   subsets: ["latin"],
   display: "swap",
-  weight: ["600", "700", "800"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
+  style: "normal",
 });
 
-const body = Nunito({
+const body = Bitter({
   variable: "--font-body",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "600", "700"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
+  style: "normal",
 });
 
-const label = Nunito({
+const label = Bitter({
   variable: "--font-label",
   subsets: ["latin"],
   display: "swap",
-  weight: ["600", "700"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
+  style: "normal",
 });
 
 const code = Geist_Mono({
@@ -230,6 +238,7 @@ export {
   protectedRoutes,
   baseURL,
   fonts,
+  shrikhandDisplay,
   style,
   schema,
   sameAs,
