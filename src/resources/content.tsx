@@ -5,11 +5,11 @@ const person: Person = {
   firstName: "Julia",
   lastName: "Levine",
   name: `Julia Levine`,
-  role: "Design Engineer",
+  role: "Data & Intelligence",
   avatar: "/images/avatar.png",
   email: "julialevine77@gmail.com",
-  location: "America/New_York", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: [], // optional: Leave the array empty if you don't want to display languages
+  location: "America/New_York",
+  languages: ["English", "Spanish"],
 };
 
 const newsletter: Newsletter = {
@@ -19,31 +19,16 @@ const newsletter: Newsletter = {
 };
 
 const social: Social = [
-  // Links are automatically displayed.
-  // Import new icons in /once-ui/icons.ts
-  // Set essentials: true for links you want to show on the about page
-  {
-    name: "GitHub",
-    icon: "github",
-    link: "https://github.com/once-ui-system",
-    essential: true,
-  },
   {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "https://www.linkedin.com/company/once-ui/",
+    link: "https://www.linkedin.com/in/julia-levine-62a9b2225/",
     essential: true,
   },
   {
-    name: "Instagram",
-    icon: "instagram",
-    link: "https://www.instagram.com/once_ui/",
-    essential: false,
-  },
-  {
-    name: "Threads",
-    icon: "threads",
-    link: "https://www.threads.com/@once_ui",
+    name: "GitHub",
+    icon: "github",
+    link: "https://github.com/julialevine7",
     essential: true,
   },
   {
@@ -60,32 +45,31 @@ const home: Home = {
   label: "Home",
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Builds that make <Text as="span" size="l" weight="strong" style={{ fontStyle: "italic" }}>data</Text> make <Text as="span" size="l" weight="strong" color="accent-400" style={{ fontStyle: "italic" }}>sense</Text> </>,
-  featured: {
-    display: true,
-    title: (
-      <Row gap="12" vertical="center">
-        <strong className="ml-4">Once UI</strong>{" "}
-        <Line background="accent-alpha-strong" vert height="20" />
-        <Text marginRight="4" onBackground="accent-strong">
-          Featured work
-        </Text>
-      </Row>
-    ),
-    href: "/work/building-once-ui-a-customizable-design-system",
-  },
-  subline: (
+  headline: (
     <>
-    Data scientist by trade, builder and creative by habit.
-</>
+      Builds that make{" "}
+      <Text as="span" size="l" weight="strong" style={{ fontStyle: "italic" }}>
+        data
+      </Text>{" "}
+      make{" "}
+      <Text as="span" size="l" weight="strong" color="accent-400" style={{ fontStyle: "italic" }}>
+        sense
+      </Text>
+    </>
   ),
+  featured: {
+    display: false,
+    title: <></>,
+    href: "",
+  },
+  subline: <>Data scientist by trade, builder and creative by habit.</>,
 };
 
 const about: About = {
   path: "/about",
   label: "About",
   title: `About Me`,
-  description: `Meet ${person.name}, ${person.role} from ${person.location}`,
+  description: `Meet ${person.name}, ${person.role}`,
   tableOfContent: {
     display: true,
     subItems: false,
@@ -102,107 +86,181 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        bio here
+        I'm a data-minded problem solver who likes building things that are both
+        useful and interesting. I studied Cognitive Science and Politics,
+        Philosophy, and Economics at the University of Pennsylvania with a minor
+        in Data Science, and I now work in financial crimes intelligence at PwC
+        — where I develop AI testing agents and dig into large-scale datasets to
+        surface risk. Outside of work, I'm drawn to creative projects that blend
+        data, design, and code. I enjoy 2D and 3D design, play bass guitar, and
+        am always looking for the next thing to learn or build.
       </>
     ),
   },
   work: {
-    display: true, // set to false to hide this section
+    display: true,
     title: "Work Experience",
     experiences: [
       {
-        company: "company 1",
-        timeframe: "2022 - Present",
-        role: "role",
+        company: "PwC",
+        timeframe: "Aug 2025 – Present",
+        role: "Business Intelligence Associate, Financial Crimes Unit",
         achievements: [
           <>
-            bio
+            Specialist in developing AI Testing Agents (Red Flag Typology
+            Classifier, Data Quality Testing) as part of the Agentic AI Center
+            of Excellence for internal and client use — focused on governance and
+            usability of AI implementations.
           </>,
           <>
-            bio
+            Leveraging SQL for large dataset analytics and direct user
+            enforcement at a major tech client.
+          </>,
+          <>
+            Identified potential for reducing client user friction by 26.5%
+            based on updated sanctions policies.
+          </>,
+          <>
+            Highlighted screening efficiency issues and identified heavy-hitter
+            examples to be addressed by the third-party screening vendor.
           </>,
         ],
-        images: [
-          // optional: leave the array empty if you don't want to display images
-          {
-            src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
-            width: 16,
-            height: 9,
-          },
+        images: [],
+      },
+      {
+        company: "PwC",
+        timeframe: "Jun 2024 – Aug 2024",
+        role: "Data & Analytics Tech Intern, Financial Crimes Unit",
+        achievements: [
+          <>
+            Used R, SQL, and Python to develop monitoring techniques to detect
+            "red flag" transactions.
+          </>,
+          <>
+            Crafted a machine learning algorithm proposal to predict suspicious
+            transactions and prevent fraudulent activity.
+          </>,
         ],
+        images: [],
+      },
+      {
+        company: "Prudential Financial",
+        timeframe: "Jun 2023 – Aug 2023",
+        role: "Risk Management Intern",
+        achievements: [
+          <>
+            Used data analytics to inform risk processes related to Compliance
+            and Audit functions.
+          </>,
+          <>
+            Contributed to the ORM platform turnover, organizing Business Unit
+            information for a cleaner transfer.
+          </>,
+        ],
+        images: [],
+      },
+      {
+        company: "Spectrum Networks NY1",
+        timeframe: "Jun 2022 – Aug 2022",
+        role: "Political News Intern",
+        achievements: [
+          <>
+            Assisted production for "Inside City Hall," researching past
+            elections and preparing informative material to predict outcomes for
+            upcoming New York races.
+          </>,
+          <>
+            Wrote script blocks for live shows based on the latest political
+            news developments.
+          </>,
+        ],
+        images: [],
+      },
+      {
+        company: "Long Island University at C.W. Post",
+        timeframe: "Jun 2019 – Nov 2020",
+        role: "Independent Researcher",
+        achievements: [
+          <>
+            Conducted biomedical research on celiac disease progression,
+            performing data analysis using GraphPad Prism 8.
+          </>,
+          <>
+            Regeneron Science Talent Search Semi-Finalist (top 300
+            internationally).
+          </>,
+        ],
+        images: [],
       },
     ],
   },
   studies: {
-    display: true, // set to false to hide this section
+    display: true,
     title: "Studies",
     institutions: [
       {
-        name: "University of college",
-        description: <>Studied stuff.</>,
+        name: "University of Pennsylvania",
+        description: (
+          <>
+            B.A. in Cognitive Science (Computation & Cognition) and Politics,
+            Philosophy, and Economics (Choice & Behavior). Minor in Data Science
+            and Analytics. Graduated May 2025.
+          </>
+        ),
       },
     ],
   },
   technical: {
-    display: true, // set to false to hide this section
+    display: true,
     title: "Technical skills",
     skills: [
       {
-        title: "Figma",
+        title: "Data & Analytics",
         description: (
-          <>Able to prototype in Figma with Once UI with unnatural speed.</>
+          <>
+            Proficient in R, Python, and SQL for data wrangling, statistical
+            analysis, and machine learning. Experience building AI agents and
+            testing frameworks. Working proficiency in Java and MATLAB.
+          </>
         ),
         tags: [
-          {
-            name: "Figma",
-            icon: "figma",
-          },
+          { name: "Python", icon: "python" },
+          { name: "R", icon: "r" },
+          { name: "SQL", icon: "document" },
+          { name: "Git", icon: "git" },
         ],
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-02.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-          {
-            src: "/images/projects/project-01/cover-03.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
+        images: [],
       },
       {
-        title: "Next.js",
+        title: "Visualization",
         description: (
-          <>Building next gen apps with Next.js + Once UI + Supabase.</>
+          <>
+            RShiny interactive web apps, ggplot2, Leaflet mapping, and Python
+            visualization libraries (matplotlib, seaborn, plotly). Also
+            experienced with Tableau and GraphPad Prism for research-grade
+            charts.
+          </>
         ),
         tags: [
-          {
-            name: "JavaScript",
-            icon: "javascript",
-          },
-          {
-            name: "Next.js",
-            icon: "nextjs",
-          },
-          {
-            name: "Supabase",
-            icon: "supabase",
-          },
+          { name: "Tableau", icon: "tableau" },
+          { name: "RShiny", icon: "r" },
+          { name: "plotly", icon: "python" },
         ],
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-04.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
+        images: [],
+      },
+      {
+        title: "Design & Creative",
+        description: (
+          <>
+            2D and 3D design with Fusion360, Autodesk Maya, and the Adobe
+            Creative Suite. I like bringing a visual eye to data-driven work.
+          </>
+        ),
+        tags: [
+          { name: "Adobe Suite", icon: "adobe" },
+          { name: "Fusion360", icon: "grid" },
         ],
+        images: [],
       },
     ],
   },
@@ -212,9 +270,7 @@ const work: Work = {
   path: "/work",
   label: "Work",
   title: `Projects – ${person.name}`,
-  description: `Design and dev projects by ${person.name}`,
-  // Create new project pages by adding a new .mdx file to app/work/projects
-  // All projects will be listed on the /home and /work routes
+  description: `Data and dev projects by ${person.name}`,
 };
 
 const gallery: Gallery = {
@@ -222,8 +278,6 @@ const gallery: Gallery = {
   label: "Gallery",
   title: `Photo gallery – ${person.name}`,
   description: `A photo collection by ${person.name}`,
-  // Images by https://lorant.one
-  // These are placeholder images, replace with your own
   images: [
     {
       src: "/images/gallery/horizontal-1.jpg",

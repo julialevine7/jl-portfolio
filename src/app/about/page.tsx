@@ -194,6 +194,16 @@ export default function About() {
                 )}
               </Row>
             )}
+            <Row className={styles.blockAlign} paddingTop="4" horizontal="center" fitWidth>
+              <Button
+                href="/Julia-Levine-Resume.pdf"
+                prefixIcon="document"
+                label="Resume"
+                size="s"
+                weight="default"
+                variant="tertiary"
+              />
+            </Row>
           </Column>
 
           {about.intro.display && (
