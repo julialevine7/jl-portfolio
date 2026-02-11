@@ -61,9 +61,11 @@
   --page-background: #fcf0f0;
 }
 
-/* Gradient splash: softer purple so it doesn’t feel dark */
+/* Gradient splash: softer purple so it doesn't feel dark */
 :root {
   --splash-deep-purple: #ae9def;
+  --lava-purple: rgba(174, 157, 239, 0.6);
+  --lava-orange: rgba(228, 160, 75, 0.5);
 }
 
 /* Use accent (red) for links so it's visible */
