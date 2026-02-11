@@ -64,8 +64,8 @@
 /* Gradient splash: softer purple so it doesn't feel dark */
 :root {
   --splash-deep-purple: #ae9def;
-  --lava-purple: rgba(174, 157, 239, 0.7);
-  --lava-purple-deep: rgba(107, 36, 96, 0.4);
+  --lava-purple: rgba(186, 170, 245, 0.75);
+  --lava-purple-deep: rgba(83, 26, 74, 0.55);
 }
 
 /* Use accent (orange) for links as a pop color */

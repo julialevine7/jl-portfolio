@@ -13,7 +13,6 @@
     will-change: transform, border-radius;
 }
 
-/* Primary blob: follows cursor, morphs on a 12s cycle */
 .blobA {
     width: 50vw;
     height: 50vh;
@@ -21,10 +20,9 @@
     left: var(--blob-x, 50%);
     top: var(--blob-y, 50%);
     translate: -50% -50%;
-    animation: morphA 12s ease-in-out infinite;
+    animation: morphA 6s ease-in-out infinite;
 }
 
-/* Secondary blob: drifts opposite to cursor, morphs on a 16s offset cycle */
 .blobB {
     width: 40vw;
     height: 40vh;
@@ -32,7 +30,7 @@
     right: calc(100% - var(--blob-x, 50%));
     bottom: calc(100% - var(--blob-y, 50%));
     translate: 50% 50%;
-    animation: morphB 16s ease-in-out infinite;
+    animation: morphB 8s ease-in-out infinite;
 }
 
 @keyframes morphA {
