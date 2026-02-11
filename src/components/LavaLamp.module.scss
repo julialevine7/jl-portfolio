@@ -14,8 +14,8 @@
 }
 
 .blobA {
-    width: 50vw;
-    height: 50vh;
+    width: 150vw;
+    height: 150vh;
     background: var(--lava-purple);
     left: var(--blob-x, 50%);
     top: var(--blob-y, 50%);
@@ -24,8 +24,8 @@
 }
 
 .blobB {
-    width: 40vw;
-    height: 40vh;
+    width: 120vw;
+    height: 120vh;
     background: var(--lava-purple-deep);
     right: calc(100% - var(--blob-x, 50%));
     bottom: calc(100% - var(--blob-y, 50%));
