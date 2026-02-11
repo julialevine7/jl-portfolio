@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import styles from "./LavaLamp.module.scss";
 
 export const LavaLamp: React.FC = () => {
-  const blobRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const pos = useRef({ x: 50, y: 50 });
   const target = useRef({ x: 50, y: 50 });
   const raf = useRef<number>(0);
@@ -17,13 +18,12 @@ export const LavaLamp: React.FC = () => {
     };
 
     const animate = () => {
-      // Smooth lerp — the blob drifts toward the cursor lazily
-      pos.current.x += (target.current.x - pos.current.x) * 0.03;
-      pos.current.y += (target.current.y - pos.current.y) * 0.03;
+      pos.current.x += (target.current.x - pos.current.x) * 0.02;
+      pos.current.y += (target.current.y - pos.current.y) * 0.02;
 
-      if (blobRef.current) {
-        blobRef.current.style.setProperty("--blob-x", `${pos.current.x}%`);
-        blobRef.current.style.setProperty("--blob-y", `${pos.current.y}%`);
+      if (containerRef.current) {
+        containerRef.current.style.setProperty("--blob-x", `${pos.current.x}%`);
+        containerRef.current.style.setProperty("--blob-y", `${pos.current.y}%`);
       }
 
       raf.current = requestAnimationFrame(animate);
@@ -39,31 +39,9 @@ export const LavaLamp: React.FC = () => {
   }, []);
 
   return (
-    <div
-      ref={blobRef}
-      aria-hidden="true"
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 0,
-        pointerEvents: "none",
-        overflow: "hidden",
-        // Two large radial blobs: orange follows cursor, purple stays offset
-        background: `
-          radial-gradient(
-            ellipse 45vw 45vh at var(--blob-x, 50%) var(--blob-y, 50%),
-            var(--lava-orange) 0%,
-            transparent 70%
-          ),
-          radial-gradient(
-            ellipse 55vw 55vh at calc(100% - var(--blob-x, 50%)) calc(100% - var(--blob-y, 50%)),
-            var(--lava-purple) 0%,
-            transparent 70%
-          )
-        `,
-        opacity: 0.45,
-        mixBlendMode: "normal",
-      }}
-    />
+    <div ref={containerRef} className={styles.container} aria-hidden="true">
+      <div className={`${styles.blob} ${styles.blobA}`} />
+      <div className={`${styles.blob} ${styles.blobB}`} />
+    </div>
   );
 };

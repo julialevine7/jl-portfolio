@@ -19,22 +19,22 @@
   --scheme-brand-1100: #faf8fe;
   --scheme-brand-1200: #fcf0f0;
 
-  /* Accent: red 9B2929 — vivid so it shows up */
-  --scheme-accent-100: #4a0f0f;
-  --scheme-accent-200: #6b1616;
-  --scheme-accent-300: #9b2929;
-  --scheme-accent-400: #9b2929;
-  --scheme-accent-500: #b53d3d;
-  --scheme-accent-600: #cf5252;
-  --scheme-accent-600-15: rgba(155, 41, 41, 0.15);
-  --scheme-accent-600-30: rgba(155, 41, 41, 0.3);
-  --scheme-accent-600-50: rgba(155, 41, 41, 0.5);
-  --scheme-accent-700: #e07070;
-  --scheme-accent-800: #ed9898;
-  --scheme-accent-900: #f5bdbd;
-  --scheme-accent-1000: #fad8d8;
-  --scheme-accent-1100: #fcebeb;
-  --scheme-accent-1200: #fcf0f0;
+  /* Accent: warm golden-orange — matched to profile flower */
+  --scheme-accent-100: #3d2408;
+  --scheme-accent-200: #6b4010;
+  --scheme-accent-300: #8f5518;
+  --scheme-accent-400: #b36d20;
+  --scheme-accent-500: #d4882e;
+  --scheme-accent-600: #e4a04b;
+  --scheme-accent-600-15: rgba(228, 160, 75, 0.15);
+  --scheme-accent-600-30: rgba(228, 160, 75, 0.3);
+  --scheme-accent-600-50: rgba(228, 160, 75, 0.5);
+  --scheme-accent-700: #eab46e;
+  --scheme-accent-800: #f0c890;
+  --scheme-accent-900: #f5dab3;
+  --scheme-accent-1000: #faebd2;
+  --scheme-accent-1100: #fcf3e8;
+  --scheme-accent-1200: #fef9f3;
 }
 
 /* Neutral: warm grays with a hint of purple — provides contrast against brand */
@@ -64,11 +64,11 @@
 /* Gradient splash: softer purple so it doesn't feel dark */
 :root {
   --splash-deep-purple: #ae9def;
-  --lava-purple: rgba(174, 157, 239, 0.6);
-  --lava-orange: rgba(228, 160, 75, 0.5);
+  --lava-purple: rgba(174, 157, 239, 0.7);
+  --lava-purple-deep: rgba(107, 36, 96, 0.4);
 }
 
-/* Use accent (red) for links so it's visible */
+/* Use accent (orange) for links as a pop color */
 [data-theme="light"] a[href]:not([data-border]) {
   color: var(--scheme-accent-400);
 }
