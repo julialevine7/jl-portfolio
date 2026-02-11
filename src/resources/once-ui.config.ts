@@ -116,14 +116,14 @@ const dataStyle: DataStyleConfig = {
 
 const effects: EffectsConfig = {
   mask: {
-    cursor: false,
+    cursor: true,
     x: 50,
     y: 0,
     radius: 100,
   },
   gradient: {
     display: true,
-    opacity: 100,
+    opacity: 60,
     x: 50,
     y: 45,
     width: 120,
@@ -134,7 +134,7 @@ const effects: EffectsConfig = {
   },
   dots: {
     display: true,
-    opacity: 40,
+    opacity: 20,
     size: "2",
     color: "brand-background-strong",
   },
@@ -202,10 +202,10 @@ const mailchimp: MailchimpConfig = {
 // default schema data
 const schema: SchemaConfig = {
   logo: "",
-  type: "Organization",
-  name: "Once UI",
+  type: "Person",
+  name: "Julia Levine",
   description: home.description,
-  email: "lorant@once-ui.com",
+  email: "julialevine77@gmail.com",
 };
 
 // social links

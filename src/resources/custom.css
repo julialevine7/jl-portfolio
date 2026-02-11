@@ -37,22 +37,22 @@
   --scheme-accent-1200: #fcf0f0;
 }
 
-/* Neutral: light-first — lavenders and cream dominate; deep only at 100–200 */
+/* Neutral: warm grays with a hint of purple — provides contrast against brand */
 :root {
-  --scheme-neutral-100: #2d0e28;
-  --scheme-neutral-200: #531a4a;
-  --scheme-neutral-300: #6b2460;
-  --scheme-neutral-400: #8a3a7a;
-  --scheme-neutral-500: #ae9def;
-  --scheme-neutral-600: #ae9def;
-  --scheme-neutral-600-15: rgba(174, 157, 239, 0.15);
-  --scheme-neutral-600-30: rgba(174, 157, 239, 0.3);
-  --scheme-neutral-600-50: rgba(174, 157, 239, 0.5);
-  --scheme-neutral-700: #c4b8f2;
-  --scheme-neutral-800: #d1c8f4;
-  --scheme-neutral-900: #e8e2fa;
-  --scheme-neutral-1000: #f2eefc;
-  --scheme-neutral-1100: #faf5f5;
+  --scheme-neutral-100: #1a1520;
+  --scheme-neutral-200: #2e2735;
+  --scheme-neutral-300: #463d4e;
+  --scheme-neutral-400: #5e5568;
+  --scheme-neutral-500: #7a7183;
+  --scheme-neutral-600: #948c9e;
+  --scheme-neutral-600-15: rgba(148, 140, 158, 0.15);
+  --scheme-neutral-600-30: rgba(148, 140, 158, 0.3);
+  --scheme-neutral-600-50: rgba(148, 140, 158, 0.5);
+  --scheme-neutral-700: #ada6b5;
+  --scheme-neutral-800: #c5c0cb;
+  --scheme-neutral-900: #dbd7df;
+  --scheme-neutral-1000: #ece9ef;
+  --scheme-neutral-1100: #f5f3f6;
   --scheme-neutral-1200: #fcf0f0;
 }
 
@@ -66,12 +66,18 @@
   --splash-deep-purple: #ae9def;
 }
 
-/* Use accent (red) for links so it’s visible */
+/* Use accent (red) for links so it's visible */
 [data-theme="light"] a[href]:not([data-border]) {
   color: var(--scheme-accent-400);
 }
 [data-theme="light"] a[href]:not([data-border]):hover {
   color: var(--scheme-accent-500);
+}
+[data-theme="dark"] a[href]:not([data-border]) {
+  color: var(--scheme-accent-700);
+}
+[data-theme="dark"] a[href]:not([data-border]):hover {
+  color: var(--scheme-accent-800);
 }
 
 /* Shrikhand only for: "Builds...", "Julia Levine", "Work Experience", "Projects" */

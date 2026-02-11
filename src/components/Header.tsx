@@ -163,6 +163,8 @@ const TimezoneAutocomplete: React.FC<{
     setHighlightedIndex(-1);
   };
 
+  const isOpen = showSuggestions && suggestions.length > 0;
+
   return (
     <div ref={wrapperRef} className={styles.autocompleteWrapper}>
       <input
@@ -176,12 +178,22 @@ const TimezoneAutocomplete: React.FC<{
         className={styles.autocompleteInput}
         spellCheck={false}
         autoComplete="off"
+        role="combobox"
+        aria-expanded={isOpen}
+        aria-controls="tz-listbox"
+        aria-haspopup="listbox"
+        aria-autocomplete="list"
+        aria-activedescendant={highlightedIndex >= 0 ? `tz-option-${highlightedIndex}` : undefined}
+        aria-label="Search timezone"
       />
-      {showSuggestions && suggestions.length > 0 && (
-        <ul ref={listRef} className={styles.suggestionsList}>
+      {isOpen && (
+        <ul ref={listRef} className={styles.suggestionsList} id="tz-listbox" role="listbox">
           {suggestions.map((tz, i) => (
             <li
               key={tz}
+              id={`tz-option-${i}`}
+              role="option"
+              aria-selected={i === highlightedIndex}
               className={`${styles.suggestionItem} ${i === highlightedIndex ? styles.suggestionItemHighlighted : ""}`}
               onMouseDown={() => selectTimezone(tz)}
               onMouseEnter={() => setHighlightedIndex(i)}
