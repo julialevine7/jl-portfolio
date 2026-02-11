@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { Avatar, Column, Fade, Flex, Line, Row, ToggleButton } from "@once-ui-system/core";
+import { Column, Fade, Flex, Line, Row, ToggleButton } from "@once-ui-system/core";
 
 import { routes, display, person, about, work, gallery } from "@/resources";
 import { ThemeToggle } from "./ThemeToggle";
@@ -211,281 +211,133 @@ export const Header = () => {
   }, [selectedTimezone]);
 
   const showTimeOrLocation = display.time || display.location;
-  const isAboutPage = pathname.startsWith("/about");
 
   return (
     <>
-      {isAboutPage ? (
-        <>
-          {/* About page: side nav with avatar */}
-          <nav className={styles.sideNav}>
-            <Avatar src={person.avatar} size="l" />
-            <Column gap="4" paddingTop="16" fillWidth horizontal="center">
-              <Row
-                gap="4"
-                vertical="center"
-                textVariant="body-default-s"
-                suppressHydrationWarning
-                direction="column"
-              >
-                {routes["/"] && (
-                  <ToggleButton
-                    prefixIcon="home"
-                    href="/"
-                    selected={pathname === "/"}
-                  />
-                )}
-                {routes["/about"] && (
-                  <ToggleButton
-                    prefixIcon="person"
-                    href="/about"
-                    label={about.label}
-                    selected={pathname === "/about"}
-                  />
-                )}
-                {routes["/work"] && (
-                  <ToggleButton
-                    prefixIcon="grid"
-                    href="/work"
-                    label={work.label}
-                    selected={pathname.startsWith("/work")}
-                  />
-                )}
-                {routes["/gallery"] && (
-                  <ToggleButton
-                    prefixIcon="gallery"
-                    href="/gallery"
-                    label={gallery.label}
-                    selected={pathname.startsWith("/gallery")}
-                  />
-                )}
-                {display.themeSwitcher && (
-                  <>
-                    <Line background="neutral-alpha-medium" maxWidth="24" />
-                    <ThemeToggle />
-                  </>
-                )}
-              </Row>
-            </Column>
-          </nav>
-
-          {/* About page: timezone + time in top-left corner (desktop) */}
+      <Fade s={{ hide: true }} fillWidth position="fixed" height="80" zIndex={9} />
+      <Fade
+        hide
+        s={{ hide: false }}
+        fillWidth
+        position="fixed"
+        bottom="0"
+        to="top"
+        height="80"
+        zIndex={9}
+      />
+      <Row
+        fitHeight
+        className={styles.position}
+        position="sticky"
+        as="header"
+        zIndex={9}
+        fillWidth
+        padding="8"
+        horizontal="center"
+        data-border="rounded"
+        s={{
+          position: "fixed",
+        }}
+      >
+        <Row paddingLeft="12" fillWidth vertical="center" textVariant="body-default-s">
           {showTimeOrLocation && (
-            <div className={styles.topBar}>
-              <div className={styles.timeSection}>
-                <TimezoneAutocomplete
-                  value={selectedTimezone}
-                  onChange={setSelectedTimezone}
-                  timezones={timezones}
-                />
-                {display.time && (
-                  <span className={styles.timeDisplay} suppressHydrationWarning>
-                    <TimeDisplay timeZone={selectedTimezone} />
-                  </span>
-                )}
-              </div>
-            </div>
+            <Column gap="2" vertical="start" s={{ hide: true }}>
+              <TimezoneAutocomplete
+                value={selectedTimezone}
+                onChange={setSelectedTimezone}
+                timezones={timezones}
+              />
+              {display.time && (
+                <Row suppressHydrationWarning>
+                  <TimeDisplay timeZone={selectedTimezone} />
+                </Row>
+              )}
+            </Column>
           )}
-
-          {/* About page: mobile bottom nav */}
-          <Fade
-            hide
-            s={{ hide: false }}
-            fillWidth
-            position="fixed"
-            bottom="0"
-            to="top"
-            height="80"
-            zIndex={9}
-          />
+        </Row>
+        <Row fillWidth horizontal="center">
           <Row
-            fitHeight
-            className={styles.mobileNav}
-            as="header"
-            zIndex={9}
-            fillWidth
-            padding="8"
+            background="page"
+            border="neutral-alpha-weak"
+            radius="m-4"
+            shadow="l"
+            padding="4"
             horizontal="center"
-            data-border="rounded"
+            zIndex={1}
           >
-            <Row fillWidth horizontal="center">
-              <Row
-                background="page"
-                border="neutral-alpha-weak"
-                radius="m-4"
-                shadow="l"
-                padding="4"
-                horizontal="center"
-                zIndex={1}
-              >
-                <Row gap="4" vertical="center" textVariant="body-default-s" suppressHydrationWarning>
-                  {routes["/"] && (
-                    <ToggleButton prefixIcon="home" href="/" selected={pathname === "/"} />
-                  )}
-                  <Line background="neutral-alpha-medium" vert maxHeight="24" />
-                  {routes["/about"] && (
+            <Row gap="4" vertical="center" textVariant="body-default-s" suppressHydrationWarning>
+              {routes["/"] && (
+                <ToggleButton prefixIcon="home" href="/" selected={pathname === "/"} />
+              )}
+              <Line background="neutral-alpha-medium" vert maxHeight="24" />
+              {routes["/about"] && (
+                <>
+                  <Row s={{ hide: true }}>
+                    <ToggleButton
+                      prefixIcon="person"
+                      href="/about"
+                      label={about.label}
+                      selected={pathname === "/about"}
+                    />
+                  </Row>
+                  <Row hide s={{ hide: false }}>
                     <ToggleButton
                       prefixIcon="person"
                       href="/about"
                       selected={pathname === "/about"}
                     />
-                  )}
-                  {routes["/work"] && (
+                  </Row>
+                </>
+              )}
+              {routes["/work"] && (
+                <>
+                  <Row s={{ hide: true }}>
+                    <ToggleButton
+                      prefixIcon="grid"
+                      href="/work"
+                      label={work.label}
+                      selected={pathname.startsWith("/work")}
+                    />
+                  </Row>
+                  <Row hide s={{ hide: false }}>
                     <ToggleButton
                       prefixIcon="grid"
                       href="/work"
                       selected={pathname.startsWith("/work")}
                     />
-                  )}
-                  {routes["/gallery"] && (
+                  </Row>
+                </>
+              )}
+              {routes["/gallery"] && (
+                <>
+                  <Row s={{ hide: true }}>
+                    <ToggleButton
+                      prefixIcon="gallery"
+                      href="/gallery"
+                      label={gallery.label}
+                      selected={pathname.startsWith("/gallery")}
+                    />
+                  </Row>
+                  <Row hide s={{ hide: false }}>
                     <ToggleButton
                       prefixIcon="gallery"
                       href="/gallery"
                       selected={pathname.startsWith("/gallery")}
                     />
-                  )}
-                  {display.themeSwitcher && (
-                    <>
-                      <Line background="neutral-alpha-medium" vert maxHeight="24" />
-                      <ThemeToggle />
-                    </>
-                  )}
-                </Row>
-              </Row>
-            </Row>
-          </Row>
-        </>
-      ) : (
-        <>
-          {/* All other pages: original top/center navigation */}
-          <Fade s={{ hide: true }} fillWidth position="fixed" height="80" zIndex={9} />
-          <Fade
-            hide
-            s={{ hide: false }}
-            fillWidth
-            position="fixed"
-            bottom="0"
-            to="top"
-            height="80"
-            zIndex={9}
-          />
-          <Row
-            fitHeight
-            className={styles.position}
-            position="sticky"
-            as="header"
-            zIndex={9}
-            fillWidth
-            padding="8"
-            horizontal="center"
-            data-border="rounded"
-            s={{
-              position: "fixed",
-            }}
-          >
-            <Row paddingLeft="12" fillWidth vertical="center" textVariant="body-default-s">
-              {showTimeOrLocation && (
-                <Column gap="2" vertical="start" s={{ hide: true }}>
-                  <div className={styles.timeSection}>
-                    <TimezoneAutocomplete
-                      value={selectedTimezone}
-                      onChange={setSelectedTimezone}
-                      timezones={timezones}
-                    />
-                  </div>
-                  {display.time && (
-                    <Row suppressHydrationWarning>
-                      <TimeDisplay timeZone={selectedTimezone} />
-                    </Row>
-                  )}
-                </Column>
+                  </Row>
+                </>
+              )}
+              {display.themeSwitcher && (
+                <>
+                  <Line background="neutral-alpha-medium" vert maxHeight="24" />
+                  <ThemeToggle />
+                </>
               )}
             </Row>
-            <Row fillWidth horizontal="center">
-              <Row
-                background="page"
-                border="neutral-alpha-weak"
-                radius="m-4"
-                shadow="l"
-                padding="4"
-                horizontal="center"
-                zIndex={1}
-              >
-                <Row gap="4" vertical="center" textVariant="body-default-s" suppressHydrationWarning>
-                  {routes["/"] && (
-                    <ToggleButton prefixIcon="home" href="/" selected={pathname === "/"} />
-                  )}
-                  <Line background="neutral-alpha-medium" vert maxHeight="24" />
-                  {routes["/about"] && (
-                    <>
-                      <Row s={{ hide: true }}>
-                        <ToggleButton
-                          prefixIcon="person"
-                          href="/about"
-                          label={about.label}
-                          selected={pathname === "/about"}
-                        />
-                      </Row>
-                      <Row hide s={{ hide: false }}>
-                        <ToggleButton
-                          prefixIcon="person"
-                          href="/about"
-                          selected={pathname === "/about"}
-                        />
-                      </Row>
-                    </>
-                  )}
-                  {routes["/work"] && (
-                    <>
-                      <Row s={{ hide: true }}>
-                        <ToggleButton
-                          prefixIcon="grid"
-                          href="/work"
-                          label={work.label}
-                          selected={pathname.startsWith("/work")}
-                        />
-                      </Row>
-                      <Row hide s={{ hide: false }}>
-                        <ToggleButton
-                          prefixIcon="grid"
-                          href="/work"
-                          selected={pathname.startsWith("/work")}
-                        />
-                      </Row>
-                    </>
-                  )}
-                  {routes["/gallery"] && (
-                    <>
-                      <Row s={{ hide: true }}>
-                        <ToggleButton
-                          prefixIcon="gallery"
-                          href="/gallery"
-                          label={gallery.label}
-                          selected={pathname.startsWith("/gallery")}
-                        />
-                      </Row>
-                      <Row hide s={{ hide: false }}>
-                        <ToggleButton
-                          prefixIcon="gallery"
-                          href="/gallery"
-                          selected={pathname.startsWith("/gallery")}
-                        />
-                      </Row>
-                    </>
-                  )}
-                  {display.themeSwitcher && (
-                    <>
-                      <Line background="neutral-alpha-medium" vert maxHeight="24" />
-                      <ThemeToggle />
-                    </>
-                  )}
-                </Row>
-              </Row>
-            </Row>
-            <Flex fillWidth horizontal="end" vertical="center" paddingRight="12" />
           </Row>
-        </>
-      )}
+        </Row>
+        <Flex fillWidth horizontal="end" vertical="center" paddingRight="12" />
+      </Row>
     </>
   );
 };
