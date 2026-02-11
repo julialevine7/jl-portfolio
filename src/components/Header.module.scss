@@ -1,6 +1,15 @@
 @use "./breakpoints.scss" as breakpoints;
 
-/* ── Side navigation (desktop) ── */
+/* ── Original sticky/fixed header (non-about pages) ── */
+.mask {
+    pointer-events: none;
+    backdrop-filter: blur(0.5rem);
+    background: linear-gradient(to bottom, var(--page-background), var(--static-transparent));
+    mask-image: linear-gradient(rgba(0,0,0) 25%, rgba(0, 0, 0, 0) 100%);
+    mask-size: 100% 100%;
+}
+
+/* ── Side navigation – about page only (desktop) ── */
 .sideNav {
     position: fixed;
     left: var(--static-space-24);
@@ -13,7 +22,7 @@
     gap: 0;
 }
 
-/* ── Mobile bottom nav ── */
+/* ── Mobile bottom nav – about page only ── */
 .mobileNav {
     display: none;
     position: fixed;
@@ -21,7 +30,7 @@
     top: auto;
 }
 
-/* ── Top bar: timezone + time (desktop) ── */
+/* ── Top-left timezone + time – about page (desktop) ── */
 .topBar {
     position: fixed;
     top: var(--static-space-20);
@@ -31,6 +40,7 @@
     align-items: center;
 }
 
+/* ── Shared timezone / time styles ── */
 .timeSection {
     display: flex;
     align-items: baseline;
@@ -110,8 +120,9 @@
     color: var(--neutral-on-background-strong);
 }
 
-/* ── Mobile: hide side nav, show bottom nav, hide top bar ── */
+/* ── Mobile breakpoint ── */
 @media (max-width: breakpoints.$s) {
+    /* About page: swap side nav for bottom nav */
     .sideNav {
         display: none;
     }
@@ -122,5 +133,16 @@
 
     .topBar {
         display: none;
+    }
+
+    /* Original header: move to bottom on mobile */
+    .position {
+        top: auto;
+        bottom: var(--static-space-24);
+    }
+
+    .mask {
+        transform: rotate(180deg);
+        bottom: 0;
     }
 }
