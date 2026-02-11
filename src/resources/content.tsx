@@ -41,10 +41,10 @@ const social: Social = [
 
 const home: Home = {
   path: "/",
-  image: `/api/og/generate?title=${encodeURIComponent("Julia Levine's Portfolio")}`,
+  image: `/api/og/generate?title=${encodeURIComponent("Julia Levine — Data & Intelligence")}`,
   label: "Home",
-  title: `${person.name}'s Portfolio`,
-  description: `Portfolio website showcasing my work as a ${person.role}`,
+  title: `Julia Levine — Data & Intelligence`,
+  description: `Data scientist by trade, builder and creative by habit.`,
   headline: (
     <>
       Builds that make{" "}
