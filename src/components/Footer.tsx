@@ -34,14 +34,15 @@ export const Footer = () => {
           {social.map(
             (item) =>
               item.link && (
-                <IconButton
-                  key={item.name}
-                  href={item.link}
-                  icon={item.icon}
-                  tooltip={item.name}
-                  size="s"
-                  variant="ghost"
-                />
+                <span key={item.name} className={styles.socialIcon}>
+                  <IconButton
+                    href={item.link}
+                    icon={item.icon}
+                    tooltip={item.name}
+                    size="s"
+                    variant="ghost"
+                  />
+                </span>
               ),
           )}
         </Row>

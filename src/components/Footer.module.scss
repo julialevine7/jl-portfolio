@@ -1,5 +1,13 @@
 @use "./breakpoints.scss" as breakpoints;
 
+.socialIcon {
+    transition: var(--transition-micro-medium);
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+}
+
 @media (max-width: breakpoints.$s) {
     .mobile {
         text-align: center;
