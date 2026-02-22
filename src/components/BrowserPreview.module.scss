@@ -1,0 +1,348 @@
+/* ──────────────────────────────────────────
+   BrowserPreview — browser-window mockup
+   ────────────────────────────────────────── */
+
+.link {
+  display: block;
+  text-decoration: none;
+  border-radius: 12px;
+  outline: none;
+
+  &:focus-visible .window {
+    box-shadow:
+      0 0 0 3px var(--scheme-accent-600),
+      0 12px 40px rgba(0, 0, 0, 0.35);
+  }
+
+  &:hover .window {
+    transform: translateY(-5px);
+    box-shadow:
+      0 24px 64px rgba(0, 0, 0, 0.45),
+      0 0 0 1px rgba(255, 255, 255, 0.08);
+  }
+}
+
+.window {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+  background: #111118;
+}
+
+/* ── Chrome bar ── */
+.chrome {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  background: #18181f;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  user-select: none;
+}
+
+.trafficLights {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  display: block;
+  transition: filter 0.15s ease;
+
+  &.red {
+    background: #ff5f57;
+    box-shadow: 0 0 6px rgba(255, 95, 87, 0.5);
+  }
+
+  &.yellow {
+    background: #febc2e;
+    box-shadow: 0 0 6px rgba(254, 188, 46, 0.4);
+  }
+
+  &.green {
+    background: #28c840;
+    box-shadow: 0 0 6px rgba(40, 200, 64, 0.4);
+  }
+}
+
+.link:hover .dot.red    { filter: brightness(1.15); }
+.link:hover .dot.yellow { filter: brightness(1.15); }
+.link:hover .dot.green  { filter: brightness(1.15); }
+
+.addressBar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 4px 10px;
+  min-width: 0;
+}
+
+.lockIcon {
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.35);
+  flex-shrink: 0;
+}
+
+.urlText {
+  font-family: var(--font-code, ui-monospace, monospace);
+  font-size: 11px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.45);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chromeRight {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.menuDot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: block;
+}
+
+/* ── Viewport ── */
+.viewport {
+  position: relative;
+  height: 320px;
+  overflow: hidden;
+
+  /* Subtle scanline texture */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 10;
+  }
+}
+
+/* ── Ambient orbs ── */
+.orb1 {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  top: -80px;
+  right: -60px;
+  filter: blur(70px);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.orb2 {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  bottom: -60px;
+  left: 20px;
+  filter: blur(60px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ── Simulated navbar ── */
+.simNav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 14px;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.simLogo {
+  width: 60px;
+  height: 10px;
+  border-radius: 5px;
+  opacity: 0.85;
+  flex-shrink: 0;
+}
+
+.simNavLinks {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+}
+
+.simNavLink {
+  width: 36px;
+  height: 7px;
+  border-radius: 3.5px;
+  opacity: 0.4;
+}
+
+.simNavCta {
+  width: 58px;
+  height: 24px;
+  border-radius: 12px;
+  opacity: 0.75;
+  flex-shrink: 0;
+}
+
+/* ── Simulated hero ── */
+.simHero {
+  position: relative;
+  z-index: 2;
+  padding: 28px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.simBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  border: 1px solid;
+  border-radius: 20px;
+  padding: 4px 10px;
+  margin-bottom: 4px;
+}
+
+.simBadgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  opacity: 0.85;
+}
+
+.simBadgeText {
+  width: 70px;
+  height: 6px;
+  border-radius: 3px;
+  opacity: 0.45;
+}
+
+.simTitle {
+  width: 72%;
+  height: 16px;
+  border-radius: 8px;
+  opacity: 0.7;
+}
+
+.simTitleShort {
+  width: 50%;
+  height: 16px;
+  border-radius: 8px;
+  opacity: 0.55;
+}
+
+.simSubtitle {
+  width: 85%;
+  height: 8px;
+  border-radius: 4px;
+  opacity: 0.3;
+  margin-top: 4px;
+}
+
+.simSubtitleShort {
+  width: 65%;
+  height: 8px;
+  border-radius: 4px;
+  opacity: 0.25;
+}
+
+.simCtaRow {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.simCtaPrimary {
+  width: 100px;
+  height: 30px;
+  border-radius: 15px;
+  opacity: 0.85;
+}
+
+.simCtaSecondary {
+  width: 80px;
+  height: 30px;
+  border-radius: 15px;
+  border: 1px solid;
+  opacity: 0.5;
+}
+
+/* ── Simulated cards ── */
+.simCardsRow {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 10px;
+  padding: 0 20px;
+}
+
+.simCard {
+  flex: 1;
+  border-radius: 10px;
+  border: 1px solid;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  backdrop-filter: blur(4px);
+}
+
+.simCardImg {
+  width: 100%;
+  height: 50px;
+  border-radius: 6px;
+  opacity: 0.6;
+}
+
+.simCardTitle {
+  width: 80%;
+  height: 7px;
+  border-radius: 3.5px;
+  opacity: 0.65;
+}
+
+.simCardLine {
+  width: 95%;
+  height: 6px;
+  border-radius: 3px;
+  opacity: 0.3;
+}
+
+.simCardLineShort {
+  width: 60%;
+  height: 6px;
+  border-radius: 3px;
+  opacity: 0.25;
+}

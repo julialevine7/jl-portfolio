@@ -2,13 +2,13 @@
 
 import {
   AvatarGroup,
-  Carousel,
   Column,
   Flex,
   Heading,
   SmartLink,
   Text,
 } from "@once-ui-system/core";
+import { BrowserPreview } from "./BrowserPreview";
 
 interface ProjectCardProps {
   href: string;
@@ -19,26 +19,37 @@ interface ProjectCardProps {
   description: string;
   avatars: { src: string }[];
   link: string;
+  scheme?: number;
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
   href,
-  images = [],
+  images,
   title,
   content,
   description,
   avatars,
   link,
+  scheme = 0,
 }) => {
+  // Derive the URL to display in the address bar
+  const previewUrl = link
+    ? (() => {
+        try {
+          return new URL(link).hostname;
+        } catch {
+          return link;
+        }
+      })()
+    : undefined;
+
+  // The preview links to the external site if available, otherwise the internal page
+  const previewHref = link || href;
+
   return (
     <Column fillWidth gap="m">
-      <Carousel
-        sizes="(max-width: 960px) 100vw, 960px"
-        items={images.map((image) => ({
-          slide: image,
-          alt: title,
-        }))}
-      />
+      <BrowserPreview href={previewHref} url={previewUrl} scheme={scheme} />
+
       <Flex
         s={{ direction: "column" }}
         fillWidth
