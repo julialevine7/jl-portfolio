@@ -1,9 +1,9 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { Column, Fade, Flex, Line, Row, Select, ToggleButton } from "@once-ui-system/core";
+import { Column, Fade, Flex, Line, Row, ToggleButton } from "@once-ui-system/core";
 
 import { routes, display, person, about, work, gallery } from "@/resources";
 import { ThemeToggle } from "./ThemeToggle";
@@ -11,19 +11,22 @@ import styles from "./Header.module.scss";
 
 const TIMEZONE_STORAGE_KEY = "portfolio-timezone";
 
-function getTimezones(): { value: string; label: string }[] {
+function getTimezones(): string[] {
   if (typeof Intl !== "undefined" && "supportedValuesOf" in Intl) {
-    const zones = (Intl as any).supportedValuesOf("timeZone") as string[];
-    return zones.sort().map((z) => ({ value: z, label: z }));
+    return ((Intl as any).supportedValuesOf("timeZone") as string[]).sort();
   }
   return [
-    { value: "America/New_York", label: "America/New_York" },
-    { value: "America/Los_Angeles", label: "America/Los_Angeles" },
-    { value: "Europe/London", label: "Europe/London" },
-    { value: "Europe/Paris", label: "Europe/Paris" },
-    { value: "Asia/Tokyo", label: "Asia/Tokyo" },
-    { value: "UTC", label: "UTC" },
+    "America/New_York",
+    "America/Los_Angeles",
+    "Europe/London",
+    "Europe/Paris",
+    "Asia/Tokyo",
+    "UTC",
   ];
+}
+
+function formatTimezoneLabel(tz: string): string {
+  return tz.replace(/_/g, " ").replace(/\//g, " / ");
 }
 
 type TimeDisplayProps = {
@@ -62,6 +65,147 @@ const TimeDisplay: React.FC<TimeDisplayProps> = ({ timeZone, locale = "en-GB" })
 };
 
 export default TimeDisplay;
+
+const TimezoneAutocomplete: React.FC<{
+  value: string;
+  onChange: (tz: string) => void;
+  timezones: string[];
+}> = ({ value, onChange, timezones }) => {
+  const [inputValue, setInputValue] = useState(formatTimezoneLabel(value));
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    setInputValue(formatTimezoneLabel(value));
+  }, [value]);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
+        setShowSuggestions(false);
+        setInputValue(formatTimezoneLabel(value));
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [value]);
+
+  useEffect(() => {
+    if (highlightedIndex >= 0 && listRef.current) {
+      const item = listRef.current.children[highlightedIndex] as HTMLElement;
+      if (item) {
+        item.scrollIntoView({ block: "nearest" });
+      }
+    }
+  }, [highlightedIndex]);
+
+  const filterSuggestions = useCallback(
+    (query: string) => {
+      if (!query.trim()) {
+        setSuggestions([]);
+        return;
+      }
+      const q = query.toLowerCase().replace(/\s+/g, "");
+      const matches = timezones.filter((tz) =>
+        tz.toLowerCase().replace(/_/g, "").includes(q)
+      );
+      setSuggestions(matches.slice(0, 8));
+    },
+    [timezones]
+  );
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setInputValue(val);
+    filterSuggestions(val);
+    setShowSuggestions(true);
+    setHighlightedIndex(-1);
+  };
+
+  const selectTimezone = (tz: string) => {
+    onChange(tz);
+    setInputValue(formatTimezoneLabel(tz));
+    setShowSuggestions(false);
+    setHighlightedIndex(-1);
+    inputRef.current?.blur();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!showSuggestions || suggestions.length === 0) return;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setHighlightedIndex((prev) => (prev < suggestions.length - 1 ? prev + 1 : 0));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : suggestions.length - 1));
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      if (highlightedIndex >= 0) {
+        selectTimezone(suggestions[highlightedIndex]);
+      } else if (suggestions.length > 0) {
+        selectTimezone(suggestions[0]);
+      }
+    } else if (e.key === "Escape") {
+      setShowSuggestions(false);
+      setInputValue(formatTimezoneLabel(value));
+    }
+  };
+
+  const handleFocus = () => {
+    setInputValue("");
+    setSuggestions([]);
+    setShowSuggestions(true);
+    setHighlightedIndex(-1);
+  };
+
+  const isOpen = showSuggestions && suggestions.length > 0;
+
+  return (
+    <div ref={wrapperRef} className={styles.autocompleteWrapper}>
+      <input
+        ref={inputRef}
+        type="text"
+        value={inputValue}
+        onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
+        onFocus={handleFocus}
+        placeholder="Search timezone..."
+        className={styles.autocompleteInput}
+        spellCheck={false}
+        autoComplete="off"
+        role="combobox"
+        aria-expanded={isOpen}
+        aria-controls="tz-listbox"
+        aria-haspopup="listbox"
+        aria-autocomplete="list"
+        aria-activedescendant={highlightedIndex >= 0 ? `tz-option-${highlightedIndex}` : undefined}
+        aria-label="Search timezone"
+      />
+      {isOpen && (
+        <ul ref={listRef} className={styles.suggestionsList} id="tz-listbox" role="listbox">
+          {suggestions.map((tz, i) => (
+            <li
+              key={tz}
+              id={`tz-option-${i}`}
+              role="option"
+              aria-selected={i === highlightedIndex}
+              className={`${styles.suggestionItem} ${i === highlightedIndex ? styles.suggestionItemHighlighted : ""}`}
+              onMouseDown={() => selectTimezone(tz)}
+              onMouseEnter={() => setHighlightedIndex(i)}
+            >
+              {formatTimezoneLabel(tz)}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
 
 export const Header = () => {
   const pathname = usePathname() ?? "";
@@ -110,15 +254,10 @@ export const Header = () => {
         <Row paddingLeft="12" fillWidth vertical="center" textVariant="body-default-s">
           {showTimeOrLocation && (
             <Column gap="2" vertical="start" s={{ hide: true }}>
-              <Select
-                id="header-timezone"
+              <TimezoneAutocomplete
                 value={selectedTimezone}
-                onSelect={(value) => setSelectedTimezone(value as string)}
-                options={timezones}
-                searchable
-                placeholder="Select timezone"
-                height="s"
-                style={{ minWidth: 220 }}
+                onChange={setSelectedTimezone}
+                timezones={timezones}
               />
               {display.time && (
                 <Row suppressHydrationWarning>

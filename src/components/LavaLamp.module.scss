@@ -1,0 +1,50 @@
+.container {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.blob {
+    position: absolute;
+    filter: blur(80px);
+    opacity: 0.35;
+    will-change: transform, border-radius;
+}
+
+.blobA {
+    width: 150vw;
+    height: 150vh;
+    background: var(--lava-purple);
+    left: var(--blob-x, 50%);
+    top: var(--blob-y, 50%);
+    translate: -50% -50%;
+    animation: morphA 6s ease-in-out infinite;
+}
+
+.blobB {
+    width: 120vw;
+    height: 120vh;
+    background: var(--lava-purple-deep);
+    right: calc(100% - var(--blob-x, 50%));
+    bottom: calc(100% - var(--blob-y, 50%));
+    translate: 50% 50%;
+    animation: morphB 8s ease-in-out infinite;
+}
+
+@keyframes morphA {
+    0%   { border-radius: 40% 60% 60% 40% / 60% 40% 60% 40%; }
+    25%  { border-radius: 60% 40% 50% 50% / 40% 60% 40% 60%; }
+    50%  { border-radius: 50% 50% 40% 60% / 50% 40% 60% 50%; }
+    75%  { border-radius: 40% 60% 60% 40% / 60% 50% 40% 50%; }
+    100% { border-radius: 40% 60% 60% 40% / 60% 40% 60% 40%; }
+}
+
+@keyframes morphB {
+    0%   { border-radius: 50% 50% 40% 60% / 40% 60% 50% 50%; }
+    25%  { border-radius: 40% 60% 60% 40% / 60% 40% 40% 60%; }
+    50%  { border-radius: 60% 40% 50% 50% / 50% 50% 60% 40%; }
+    75%  { border-radius: 50% 50% 60% 40% / 40% 60% 50% 50%; }
+    100% { border-radius: 50% 50% 40% 60% / 40% 60% 50% 50%; }
+}

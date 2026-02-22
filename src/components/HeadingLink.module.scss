@@ -4,6 +4,7 @@
     &:hover {
         .visibility {
             opacity: 1;
+            transform: scale(1) translateX(0);
         }
 
         .text {
@@ -20,5 +21,6 @@
 
 .visibility {
     opacity: 0;
-    transform: scale(0.875);
+    transform: scale(0.875) translateX(-4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }

@@ -8,8 +8,8 @@ export async function GET(request: Request) {
   let title = url.searchParams.get("title") || "Portfolio";
 
   async function loadGoogleFont(font: string) {
-    const url = `https://fonts.googleapis.com/css2?family=${font}`;
-    const css = await (await fetch(url)).text();
+    const gurl = `https://fonts.googleapis.com/css2?family=${font}`;
+    const css = await (await fetch(gurl)).text();
     const resource = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/);
 
     if (resource) {
@@ -28,29 +28,57 @@ export async function GET(request: Request) {
         display: "flex",
         width: "100%",
         height: "100%",
-        padding: "6rem",
-        background: "#151515",
+        padding: "5rem",
+        background: "#fcf0f0",
+        position: "relative",
       }}
     >
+      {/* Purple blob top-right */}
+      <div
+        style={{
+          position: "absolute",
+          top: "-120px",
+          right: "-80px",
+          width: "500px",
+          height: "500px",
+          borderRadius: "40% 60% 60% 40% / 60% 40% 60% 40%",
+          background: "rgba(174, 157, 239, 0.35)",
+          filter: "blur(60px)",
+        }}
+      />
+      {/* Deep purple blob bottom-left */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: "-100px",
+          left: "-60px",
+          width: "400px",
+          height: "400px",
+          borderRadius: "50% 50% 40% 60% / 40% 60% 50% 50%",
+          background: "rgba(83, 26, 74, 0.25)",
+          filter: "blur(60px)",
+        }}
+      />
       <div
         style={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
-          gap: "4rem",
+          justifyContent: "space-between",
+          height: "100%",
+          width: "100%",
           fontStyle: "normal",
-          color: "white",
+          color: "#1a1520",
+          position: "relative",
         }}
       >
         <span
           style={{
-            padding: "1rem",
-            fontSize: "6rem",
-            lineHeight: "8rem",
-            letterSpacing: "-0.05em",
-            whiteSpace: "wrap",
+            fontSize: "5rem",
+            lineHeight: "6rem",
+            letterSpacing: "-0.03em",
+            whiteSpace: "pre-wrap",
             textWrap: "balance",
-            overflow: "hidden",
+            fontWeight: 700,
           }}
         >
           {title}
@@ -59,14 +87,14 @@ export async function GET(request: Request) {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "5rem",
+            gap: "3rem",
           }}
         >
           <img
             src={baseURL + person.avatar}
             style={{
-              width: "12rem",
-              height: "12rem",
+              width: "10rem",
+              height: "10rem",
               objectFit: "cover",
               borderRadius: "100%",
             }}
@@ -75,29 +103,26 @@ export async function GET(request: Request) {
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: "0.75rem",
+              gap: "0.5rem",
             }}
           >
             <span
               style={{
-                fontSize: "4.5rem",
-                lineHeight: "4.5rem",
-                whiteSpace: "pre-wrap",
-                textWrap: "balance",
+                fontSize: "3.5rem",
+                lineHeight: "3.5rem",
+                fontWeight: 700,
               }}
             >
               {person.name}
             </span>
             <span
               style={{
-                fontSize: "2.5rem",
+                fontSize: "2rem",
                 lineHeight: "2.5rem",
-                whiteSpace: "pre-wrap",
-                textWrap: "balance",
-                opacity: "0.6",
+                color: "#b36d20",
               }}
             >
-              {person.role}
+              Data scientist by trade, builder and creative by habit.
             </span>
           </div>
         </div>

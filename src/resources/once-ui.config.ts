@@ -14,7 +14,7 @@ import {
 import { home } from "./index";
 
 // IMPORTANT: Replace with your own domain address - it's used for SEO in meta tags and schema
-const baseURL: string = "https://demo.magic-portfolio.com";
+const baseURL: string = "https://julia-levine.com";
 
 const routes: RoutesConfig = {
   "/": true,
@@ -123,7 +123,7 @@ const effects: EffectsConfig = {
   },
   gradient: {
     display: true,
-    opacity: 100,
+    opacity: 60,
     x: 50,
     y: 45,
     width: 120,
@@ -134,7 +134,7 @@ const effects: EffectsConfig = {
   },
   dots: {
     display: true,
-    opacity: 40,
+    opacity: 20,
     size: "2",
     color: "brand-background-strong",
   },
@@ -202,17 +202,17 @@ const mailchimp: MailchimpConfig = {
 // default schema data
 const schema: SchemaConfig = {
   logo: "",
-  type: "Organization",
-  name: "Once UI",
+  type: "Person",
+  name: "Julia Levine",
   description: home.description,
-  email: "lorant@once-ui.com",
+  email: "julialevine77@gmail.com",
 };
 
 // social links
 const sameAs: SameAsConfig = {
-  threads: "https://www.threads.com/@once_ui",
-  linkedin: "https://www.linkedin.com/company/once-ui/",
-  discord: "https://discord.com/invite/5EyAQ4eNdS",
+  threads: "",
+  linkedin: "https://www.linkedin.com/in/julia-levine-62a9b2225/",
+  discord: "",
 };
 
 // social sharing configuration for blog posts
